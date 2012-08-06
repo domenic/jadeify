@@ -1,0 +1,31 @@
+{
+    "name": "simple-jadeify",
+    "description": "A simple browserify middleware for turning .jade files into template functions",
+    "version": "1.0.0",
+    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
+    "license": "WTFPL",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/domenic/simple-jadeify.git"
+    },
+    "bugs": {
+        "url": "http://github.com/domenic/simple-jadeify/issues"
+    },
+    "main": "lib/simple-jadeify.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "mocha",
+        "lint": "jshint lib --show-non-errors"
+    },
+    "dependencies": {
+        "jade": "*"
+    },
+    "devDependencies": {
+        "browserify": "*",
+        "jshint": ">= 0.7.3",
+        "jsdom": ">= 0.2.15",
+        "mocha": ">= 1.3.2"
+    }
+}
