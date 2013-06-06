@@ -19,7 +19,7 @@
         "test": "mocha",
         "lint": "jshint lib --show-non-errors"
     },
-    "dependencies": {
+    "peerDependencies": {
         "jade": "*"
     },
     "devDependencies": {
