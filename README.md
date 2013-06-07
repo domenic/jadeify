@@ -1,6 +1,6 @@
-# A Simple Browserify Middleware for Jade Templates
+# A Simple Browserify Transform for Jade
 
-**Simple Jadeify** lets you use [Jade][] with [browserify][] in the simplest way possible:
+**Simple Jadeify** lets you use [Jade][] templates with [browserify][] in the simplest way possible:
 
 ```js
 var template = require("./template.jade");
@@ -13,12 +13,19 @@ document.getElementById("my-thing").innerHTML = template({ localVar: "value", an
 Dead simple. When creating your browserify bundle, just add this line:
 
 ```js
-bundle.use(require("simple-jadeify"));
+bundle.transform(require("simple-jadeify"));
 ```
 
-This will add the Jade runtime to your bundle, so that your templates work without needing to bundle Jade itself. And it
-will register the `.jade` extension with Browserify such that `require`ing any Jade files will give you back a template
-function.
+or if you are a command line cowboy, something along the lines of
+
+```js
+browserify -t simple-jadeify entry.js -o bundle.js
+```
+
+Note that this project peer-depends on Jade and each template will do `require("jade/runtime")`, so everything will just
+work: there's no need to add any Jade-related stuff to your bundle manually.
+
+So yeah, now `require`ing any `.jade` files will give you back a template function. Have fun!
 
 [Jade]: http://jade-lang.com/
 [browserify]: https://github.com/substack/node-browserify
