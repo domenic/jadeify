@@ -14,13 +14,17 @@
         "test": "mocha",
         "lint": "jshint lib"
     },
+    "dependencies": {
+        "through": "2.x"
+    },
     "peerDependencies": {
         "jade": "*",
-        "browserify": ">= 1.0 < 2"
+        "browserify": ">= 2.4.0 < 3"
     },
     "devDependencies": {
         "jade": "*",
-        "browserify": "1.x",
+        "browserify": "2.x",
+        "concat-stream": "1.x",
         "jshint": "2.x",
         "jsdom": "0.6.x",
         "mocha": "1.10.x"

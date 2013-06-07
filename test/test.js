@@ -3,6 +3,7 @@
 var fs = require("fs");
 var path = require("path")
 var assert = require("assert");
+var concatStream = require("concat-stream");
 var browserify = require("browserify");
 var jsdom = require("jsdom").jsdom;
 var simpleJadeify = require("..");
@@ -11,16 +12,20 @@ function stuffPath(fileName) {
     return path.resolve(__dirname, "stuff", fileName);
 }
 
-var bundleJs = browserify().use(simpleJadeify).addEntry(stuffPath("entry.js")).bundle();
+var bundleStream = browserify().transform(simpleJadeify).add(stuffPath("entry.js")).bundle();
 var pageHtml = fs.readFileSync(stuffPath("index.html"), "utf8");
 var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").trim();
 
-specify("It gives the desired output", function () {
-    var window = jsdom(pageHtml).createWindow();
+specify("It gives the desired output", function (done) {
+    bundleStream.pipe(concatStream(function (bundleJs) {
+        var window = jsdom(pageHtml).createWindow();
 
-    var scriptEl = window.document.createElement("script");
-    scriptEl.textContent = bundleJs;
-    window.document.head.appendChild(scriptEl);
+        var scriptEl = window.document.createElement("script");
+        scriptEl.textContent = bundleJs;
+        window.document.head.appendChild(scriptEl);
 
-    assert.equal(window.document.body.innerHTML, desiredOutput);
+        assert.equal(window.document.body.innerHTML, desiredOutput);
+
+        done();
+    }));
 });
