@@ -8,13 +8,8 @@
         "type": "git",
         "url": "git://github.com/domenic/simple-jadeify.git"
     },
-    "bugs": {
-        "url": "http://github.com/domenic/simple-jadeify/issues"
-    },
+    "bugs": "http://github.com/domenic/simple-jadeify/issues",
     "main": "lib/simple-jadeify.js",
-    "directories": {
-        "lib": "lib"
-    },
     "scripts": {
         "test": "mocha",
         "lint": "jshint lib"
