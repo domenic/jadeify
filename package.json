@@ -17,16 +17,17 @@
     },
     "scripts": {
         "test": "mocha",
-        "lint": "jshint lib --show-non-errors"
+        "lint": "jshint lib"
     },
     "peerDependencies": {
         "jade": "*",
         "browserify": ">= 1.0 < 2"
     },
     "devDependencies": {
-        "browserify": "*",
-        "jshint": ">= 0.7.3",
-        "jsdom": ">= 0.2.15",
-        "mocha": ">= 1.3.2"
+        "jade": "*",
+        "browserify": "1.x",
+        "jshint": "2.x",
+        "jsdom": "0.6.x",
+        "mocha": "1.10.x"
     }
 }
