@@ -5,7 +5,10 @@
 ```js
 var template = require("./template.jade");
 
-document.getElementById("my-thing").innerHTML = template({ localVar: "value", anotherOne: "another value" });
+document.getElementById("my-thing").innerHTML = template({
+    localVar: "value",
+    anotherOne: "another value"
+});
 ```
 
 ## Setup
