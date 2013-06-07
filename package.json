@@ -20,7 +20,8 @@
         "lint": "jshint lib --show-non-errors"
     },
     "peerDependencies": {
-        "jade": "*"
+        "jade": "*",
+        "browserify": ">= 1.0 < 2"
     },
     "devDependencies": {
         "browserify": "*",
