@@ -9,7 +9,7 @@
         "type": "git",
         "url": "git://github.com/domenic/simple-jadeify.git"
     },
-    "bugs": "http://github.com/domenic/simple-jadeify/issues",
+    "bugs": "https://github.com/domenic/simple-jadeify/issues",
     "main": "lib/simple-jadeify.js",
     "scripts": {
         "test": "mocha",
