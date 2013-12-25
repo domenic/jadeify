@@ -18,7 +18,7 @@ var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").tri
 
 specify("It gives the desired output", function (done) {
     bundleStream.pipe(concatStream(function (bundleJs) {
-        var window = jsdom(pageHtml).createWindow();
+        var window = jsdom(pageHtml).parentWindow;
 
         var scriptEl = window.document.createElement("script");
         scriptEl.textContent = bundleJs;
