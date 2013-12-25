@@ -2,7 +2,7 @@
     "name": "simple-jadeify",
     "description": "A simple browserify transform for turning .jade files into template functions",
     "keywords": ["browserify", "jade", "templates", "templating", "transform"],
-    "version": "2.0.1",
+    "version": "2.1.0",
     "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
     "license": "WTFPL",
     "repository": {
