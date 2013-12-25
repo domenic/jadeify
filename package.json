@@ -19,7 +19,7 @@
         "through": "2.x"
     },
     "peerDependencies": {
-        "jade": ">= 0.31.1",
+        "jade": ">= 0.31.1 < 2",
         "browserify": ">= 2.4.0 < 4"
     },
     "devDependencies": {
