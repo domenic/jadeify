@@ -6,13 +6,13 @@ var assert = require("assert");
 var concatStream = require("concat-stream");
 var browserify = require("browserify");
 var jsdom = require("jsdom").jsdom;
-var simpleJadeify = require("..");
+var jadeify = require("..");
 
 function stuffPath(fileName) {
     return path.resolve(__dirname, "stuff", fileName);
 }
 
-var bundleStream = browserify().transform(simpleJadeify).add(stuffPath("entry.js")).bundle();
+var bundleStream = browserify().transform(jadeify).add(stuffPath("entry.js")).bundle();
 var pageHtml = fs.readFileSync(stuffPath("index.html"), "utf8");
 var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").trim();
 
