@@ -1,6 +1,14 @@
-h1= pageTitle
-
-if youAreUsingJade
-    p You are amazing.
-else
-    p Get on it!
+.result
+    h4 #{name}
+    .col-xs-12.col-sm-5.contact-info
+        p.location
+            i.fa.fa-map-marker
+            span Location
+            |#{address}
+        p.phone-number
+            i.fa.fa-phone
+            span Phone
+            |#{phone}
+    .col-xs-12.col-sm-7.details
+        h5 Details
+        p #{details}

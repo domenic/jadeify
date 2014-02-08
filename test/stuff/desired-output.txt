@@ -1,1 +1,1 @@
-<h1>Jade</h1><p>You are amazing.</p>
+<div class="result"><h4>Name Test</h4><div class="col-xs-12 col-sm-5 contact-info"><p class="location"><i class="fa fa-map-marker"></i><span>Location</span>123 Test St</p><p class="phone-number"><i class="fa fa-phone"></i><span>Phone</span>111-111-1111</p></div><div class="col-xs-12 col-sm-7 details"><h5>Details</h5><p>Test Details</p></div></div>
