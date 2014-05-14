@@ -20,7 +20,7 @@
     },
     "peerDependencies": {
         "jade": ">= 0.31.1 < 2",
-        "browserify": ">= 2.4.0 < 4"
+        "browserify": ">= 2.4.0 < 5"
     },
     "devDependencies": {
         "jade": "1.x",
