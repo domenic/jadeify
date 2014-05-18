@@ -12,11 +12,18 @@ function stuffPath(fileName) {
     return path.resolve(__dirname, "stuff", fileName);
 }
 
-var bundleStream = browserify().transform(jadeify).add(stuffPath("entry.js")).bundle();
-var pageHtml = fs.readFileSync(stuffPath("index.html"), "utf8");
-var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").trim();
+function prepareBundle(jsEntryName) {
+    return browserify()
+        .transform(jadeify)
+        .add(stuffPath(jsEntryName))
+        .bundle();
+}
 
 specify("It gives the desired output", function (done) {
+    var bundleStream = prepareBundle("entry.js");
+    var pageHtml = fs.readFileSync(stuffPath("index.html"), "utf8");
+    var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").trim();
+
     bundleStream.pipe(concatStream(function (bundleJs) {
         var window = jsdom(pageHtml).parentWindow;
 
@@ -26,6 +33,19 @@ specify("It gives the desired output", function (done) {
 
         assert.equal(window.document.body.innerHTML, desiredOutput);
 
+        done();
+    }));
+});
+
+specify("It emits stream error when Jade fails to process template", function (done) {
+    var bundleStream = prepareBundle("test2/entry.js");
+
+    bundleStream.on("error", function (error) {
+        assert(error instanceof Error, "Must emit Error object.");
+        done();
+    })
+    .pipe(concatStream(function (bundleJs) {
+        assert(false, "Must emit \"error\".");
         done();
     }));
 });
