@@ -16,6 +16,7 @@
         "lint": "jshint lib"
     },
     "dependencies": {
+        "find-parent-dir": "^0.3.0",
         "through": "^2.3.4"
     },
     "peerDependencies": {

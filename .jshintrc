@@ -5,7 +5,7 @@
     "globalstrict": true,
     "immed": true,
     "indent": 4,
-    "latedef": true,
+    "latedef": "func",
     "newcap": true,
     "noarg": true,
     "node": true,
