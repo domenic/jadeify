@@ -24,21 +24,15 @@ specify("It gives the desired output", function (done) {
 });
 
 specify("It emits stream error when Jade fails to process template", function (done) {
-    var bundleStream = prepareBundle("test2/entry.js");
-
-    bundleStream.on("error", function (error) {
-        assert(error instanceof Error, "Must emit Error object.");
-        done();
-    })
-    .pipe(concatStream(function (bundleJs) {
-        assert(false, "Must emit \"error\".");
-        done();
-    }));
+    testOutputErrors("test2", done);
 });
 
 specify("It uses options from the nearest package.json", function (done) {
-    var oldCwd = process.cwd();
     testOutputMatches("test3", done);
+});
+
+specify("It emits stream error when a non-object is used as the package.json config", function (done) {
+    testOutputErrors("test4", done);
 });
 
 function testOutputMatches(testDir, done) {
@@ -57,6 +51,21 @@ function testOutputMatches(testDir, done) {
 
         assert.equal(window.document.body.innerHTML, desiredOutput);
 
+        done();
+    }));
+}
+
+function testOutputErrors(testDir, done) {
+    process.chdir(stuffPath(testDir));
+
+    var bundleStream = prepareBundle(testDir + "/entry.js");
+
+    bundleStream.on("error", function (error) {
+        assert(error instanceof Error, "Must emit Error object.");
+        done();
+    })
+    .pipe(concatStream(function (bundleJs) {
+        assert(false, "Must emit \"error\".");
         done();
     }));
 }
