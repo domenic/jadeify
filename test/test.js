@@ -20,21 +20,7 @@ function prepareBundle(jsEntryName) {
 }
 
 specify("It gives the desired output", function (done) {
-    var bundleStream = prepareBundle("test1/entry.js");
-    var pageHtml = fs.readFileSync(stuffPath("test1/index.html"), "utf8");
-    var desiredOutput = fs.readFileSync(stuffPath("test1/desired-output.txt"), "utf8").trim();
-
-    bundleStream.pipe(concatStream(function (bundleJs) {
-        var window = jsdom(pageHtml).parentWindow;
-
-        var scriptEl = window.document.createElement("script");
-        scriptEl.textContent = bundleJs;
-        window.document.head.appendChild(scriptEl);
-
-        assert.equal(window.document.body.innerHTML, desiredOutput);
-
-        done();
-    }));
+    testOutputMatches("test1", done);
 });
 
 specify("It emits stream error when Jade fails to process template", function (done) {
@@ -49,3 +35,28 @@ specify("It emits stream error when Jade fails to process template", function (d
         done();
     }));
 });
+
+specify("It uses options from the nearest package.json", function (done) {
+    var oldCwd = process.cwd();
+    testOutputMatches("test3", done);
+});
+
+function testOutputMatches(testDir, done) {
+    process.chdir(stuffPath(testDir));
+
+    var bundleStream = prepareBundle(testDir + "/entry.js");
+    var pageHtml = fs.readFileSync(stuffPath(testDir + "/index.html"), "utf8");
+    var desiredOutput = fs.readFileSync(stuffPath(testDir + "/desired-output.txt"), "utf8").trim();
+
+    bundleStream.pipe(concatStream(function (bundleJs) {
+        var window = jsdom(pageHtml).parentWindow;
+
+        var scriptEl = window.document.createElement("script");
+        scriptEl.textContent = bundleJs;
+        window.document.head.appendChild(scriptEl);
+
+        assert.equal(window.document.body.innerHTML, desiredOutput);
+
+        done();
+    }));
+}
