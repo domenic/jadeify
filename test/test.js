@@ -20,9 +20,9 @@ function prepareBundle(jsEntryName) {
 }
 
 specify("It gives the desired output", function (done) {
-    var bundleStream = prepareBundle("entry.js");
-    var pageHtml = fs.readFileSync(stuffPath("index.html"), "utf8");
-    var desiredOutput = fs.readFileSync(stuffPath("desired-output.txt"), "utf8").trim();
+    var bundleStream = prepareBundle("test1/entry.js");
+    var pageHtml = fs.readFileSync(stuffPath("test1/index.html"), "utf8");
+    var desiredOutput = fs.readFileSync(stuffPath("test1/desired-output.txt"), "utf8").trim();
 
     bundleStream.pipe(concatStream(function (bundleJs) {
         var window = jsdom(pageHtml).parentWindow;
