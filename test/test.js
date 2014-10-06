@@ -12,9 +12,9 @@ function stuffPath(fileName) {
     return path.resolve(__dirname, "stuff", fileName);
 }
 
-function prepareBundle(jsEntryName) {
+function prepareBundle(jsEntryName, options) {
     return browserify()
-        .transform(jadeify)
+        .transform(jadeify, options)
         .add(stuffPath(jsEntryName))
         .bundle();
 }
@@ -35,10 +35,14 @@ specify("It emits stream error when a non-object is used as the package.json con
     testOutputErrors("test4", done);
 });
 
-function testOutputMatches(testDir, done) {
+specify("It uses options from js", function (done) {
+    testOutputMatches("test5", done, { self: true });
+});
+
+function testOutputMatches(testDir, done, options) {
     process.chdir(stuffPath(testDir));
 
-    var bundleStream = prepareBundle(testDir + "/entry.js");
+    var bundleStream = prepareBundle(testDir + "/entry.js", options);
     var pageHtml = fs.readFileSync(stuffPath(testDir + "/index.html"), "utf8");
     var desiredOutput = fs.readFileSync(stuffPath(testDir + "/desired-output.txt"), "utf8").trim();
 
