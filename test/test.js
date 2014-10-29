@@ -39,6 +39,10 @@ specify("It uses options from js", function (done) {
     testOutputMatches("test5", done, { self: true });
 });
 
+specify("It should emit all files in dependency tree", function (done) {
+    testFileEmit("test6", done, { self: true });
+});
+
 function testOutputMatches(testDir, done, options) {
     process.chdir(stuffPath(testDir));
 
@@ -72,4 +76,23 @@ function testOutputErrors(testDir, done) {
         assert(false, "Must emit \"error\".");
         done();
     }));
+}
+
+function testFileEmit(testDir, done) {
+    process.chdir(stuffPath(testDir));
+
+    var bundleStream = prepareBundle(testDir + "/entry.js");
+    var dependencyList = [];
+
+    bundleStream.on("transform", function (tr, file) {
+        tr.on("file", function (file) {
+            dependencyList.push(path.basename(file));
+        });
+    })
+    .pipe(concatStream(function (bundleJs) {
+        assert(bundleJs, "Must create bundle as expected.");
+        assert.deepEqual(dependencyList, ["header.jade", "footer.jade"]);
+        done();
+    }));
+
 }
