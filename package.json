@@ -9,14 +9,14 @@
     "transform"
   ],
   "version": "2.7.0",
-  "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenic.me)",
+  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
   "license": "WTFPL",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/domenic/jadeify.git"
-  },
-  "bugs": "https://github.com/domenic/jadeify/issues",
+  "repository": "domenic/jadeify",
   "main": "lib/jadeify.js",
+  "files": [
+    "lib/",
+    "LICENSE.txt"
+  ],
   "scripts": {
     "test": "mocha",
     "lint": "jshint lib"
