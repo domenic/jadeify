@@ -1,5 +1,7 @@
 {
-    "jadeify": {
-        "self": true
+    "browserify": {
+        "transform": [
+            ["../../..", { "self": true }]
+        ]
     }
 }

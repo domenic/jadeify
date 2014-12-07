@@ -12,11 +12,14 @@ function stuffPath(fileName) {
     return path.resolve(__dirname, "stuff", fileName);
 }
 
-function prepareBundle(jsEntryName, options) {
-    return browserify()
-        .transform(jadeify, options)
-        .add(stuffPath(jsEntryName))
-        .bundle();
+function prepareBundle(jsEntryName, bundleOptions, preparationOptions) {
+    var bundle = browserify();
+
+    if (!preparationOptions || !preparationOptions.dontTransform) {
+        bundle = bundle.transform(jadeify, bundleOptions);
+    }
+
+    return bundle.add(stuffPath(jsEntryName)).bundle();
 }
 
 specify("It gives the desired output", function (done) {
@@ -27,12 +30,8 @@ specify("It emits stream error when Jade fails to process template", function (d
     testOutputErrors("test2", done);
 });
 
-specify("It uses options from the nearest package.json", function (done) {
-    testOutputMatches("test3", done);
-});
-
-specify("It emits stream error when a non-object is used as the package.json config", function (done) {
-    testOutputErrors("test4", done);
+specify("It can be configured with package.json", function (done) {
+    testOutputMatches("test3", done, undefined, { dontTransform: true });
 });
 
 specify("It uses options from js", function (done) {
@@ -43,10 +42,10 @@ specify("It should emit all files in dependency tree", function (done) {
     testFileEmit("test6", done, { self: true });
 });
 
-function testOutputMatches(testDir, done, options) {
+function testOutputMatches(testDir, done, bundleOptions, preparationOptions) {
     process.chdir(stuffPath(testDir));
 
-    var bundleStream = prepareBundle(testDir + "/entry.js", options);
+    var bundleStream = prepareBundle(testDir + "/entry.js", bundleOptions, preparationOptions);
     var pageHtml = fs.readFileSync(stuffPath(testDir + "/index.html"), "utf8");
     var desiredOutput = fs.readFileSync(stuffPath(testDir + "/desired-output.txt"), "utf8").trim();
 

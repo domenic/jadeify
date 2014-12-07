@@ -22,8 +22,6 @@
     "lint": "jshint lib"
   },
   "dependencies": {
-    "bluebird": "^2.3.10",
-    "find-parent-dir": "0.3.0",
     "through": "^2.3.6"
   },
   "peerDependencies": {
