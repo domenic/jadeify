@@ -27,7 +27,7 @@
     "through": "^2.3.6"
   },
   "peerDependencies": {
-    "browserify": ">= 2.4.0 < 7",
+    "browserify": ">= 2.4.0 < 8",
     "jade": "^1.4.0"
   },
   "devDependencies": {
