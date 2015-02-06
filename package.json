@@ -26,12 +26,12 @@
   },
   "peerDependencies": {
     "browserify": ">= 2.4.0 < 9",
-    "jade": "^1.4.0"
+    "jade": "^1.9.2"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
     "concat-stream": "^1.4.6",
-    "jade": "^1.7.0",
+    "jade": "^1.9.2",
     "jsdom": "^1.1.0",
     "jshint": "^2.5.8",
     "mocha": "^2.0.1"
