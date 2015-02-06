@@ -14,8 +14,7 @@
   "repository": "domenic/jadeify",
   "main": "lib/jadeify.js",
   "files": [
-    "lib/",
-    "LICENSE.txt"
+    "lib/"
   ],
   "scripts": {
     "test": "mocha",
@@ -29,11 +28,11 @@
     "jade": "^1.9.2"
   },
   "devDependencies": {
-    "browserify": "^6.2.0",
+    "browserify": "^8.1.3",
     "concat-stream": "^1.4.6",
     "jade": "^1.9.2",
-    "jsdom": "^1.1.0",
-    "jshint": "^2.5.8",
+    "jsdom": "^3.1.0",
+    "jshint": "^2.6.0",
     "mocha": "^2.0.1"
   }
 }
