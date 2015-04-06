@@ -34,6 +34,13 @@ specify("It can be configured with package.json", function (done) {
     testOutputMatches("test3", done, undefined, { dontTransform: true });
 });
 
+specify("It can be configured with the runtimePath option", function (done) {
+    testOutputMatches("test4", done, {
+        self: true,
+        runtimePath: "./jade-runtime"
+    });
+});
+
 specify("It uses options from js", function (done) {
     testOutputMatches("test5", done, { self: true });
 });
