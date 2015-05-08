@@ -19,7 +19,7 @@ function prepareBundle(jsEntryName, bundleOptions, preparationOptions) {
         bundle = bundle.transform(jadeify, bundleOptions);
     }
 
-    return bundle.add(stuffPath(jsEntryName)).bundle();
+    return bundle.add(stuffPath(jsEntryName));
 }
 
 specify("It gives the desired output", function (done) {
@@ -52,7 +52,7 @@ specify("It should emit all files in dependency tree", function (done) {
 function testOutputMatches(testDir, done, bundleOptions, preparationOptions) {
     process.chdir(stuffPath(testDir));
 
-    var bundleStream = prepareBundle(testDir + "/entry.js", bundleOptions, preparationOptions);
+    var bundleStream = prepareBundle(testDir + "/entry.js", bundleOptions, preparationOptions).bundle();
     var pageHtml = fs.readFileSync(stuffPath(testDir + "/index.html"), "utf8");
     var desiredOutput = fs.readFileSync(stuffPath(testDir + "/desired-output.txt"), "utf8").trim();
 
@@ -72,9 +72,10 @@ function testOutputMatches(testDir, done, bundleOptions, preparationOptions) {
 function testOutputErrors(testDir, done) {
     process.chdir(stuffPath(testDir));
 
-    var bundleStream = prepareBundle(testDir + "/entry.js");
+    var bundle = prepareBundle(testDir + "/entry.js");
+    var stream = bundle.bundle();
 
-    bundleStream.on("error", function (error) {
+    stream.on("error", function (error) {
         assert(error instanceof Error, "Must emit Error object.");
         done();
     })
@@ -87,18 +88,19 @@ function testOutputErrors(testDir, done) {
 function testFileEmit(testDir, done) {
     process.chdir(stuffPath(testDir));
 
-    var bundleStream = prepareBundle(testDir + "/entry.js");
+    var bundle = prepareBundle(testDir + "/entry.js");
+    var stream = bundle.bundle();
     var dependencyList = [];
 
-    bundleStream.on("transform", function (tr, file) {
+    bundle.on("transform", function (tr, file) {
         tr.on("file", function (file) {
             dependencyList.push(path.basename(file));
         });
-    })
-    .pipe(concatStream(function (bundleJs) {
+    });
+
+    stream.pipe(concatStream(function (bundleJs) {
         assert(bundleJs, "Must create bundle as expected.");
         assert.deepEqual(dependencyList, ["header.jade", "footer.jade"]);
         done();
     }));
-
 }
