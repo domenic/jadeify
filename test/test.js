@@ -57,7 +57,7 @@ function testOutputMatches(testDir, done, bundleOptions, preparationOptions) {
     var desiredOutput = fs.readFileSync(stuffPath(testDir + "/desired-output.txt"), "utf8").trim();
 
     bundleStream.pipe(concatStream(function (bundleJs) {
-        var window = jsdom(pageHtml).parentWindow;
+        var window = jsdom(pageHtml).defaultView;
 
         var scriptEl = window.document.createElement("script");
         scriptEl.textContent = bundleJs;
