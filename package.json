@@ -24,11 +24,11 @@
     "through": "^2.3.6"
   },
   "peerDependencies": {
-    "browserify": ">= 2.4.0 < 13",
+    "browserify": ">= 2.4.0 < 14",
     "jade": "^1.9.2"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
+    "browserify": "^13.0.0",
     "concat-stream": "^1.5.0",
     "jade": "^1.11.0",
     "jsdom": "^7.0.2",
