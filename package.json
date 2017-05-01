@@ -8,7 +8,7 @@
     "templating",
     "transform"
   ],
-  "version": "4.6.0",
+  "version": "4.7.0",
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
   "license": "WTFPL",
   "repository": "domenic/jadeify",
